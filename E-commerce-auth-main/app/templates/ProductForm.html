@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styling.css') }}">
+        <title>Product Details Form</title>
+    </head>
+
+    <body>
+        <div class="navbar">
+            <div class="logo">FusionFits</div>
+
+            <div class="search-bar">
+                <input type="text" id="search" name="search" placeholder="Search">
+                <button type="button">Search</button><br><br>
+            </div>
+
+            <div class="account-section">
+                <a href="page2.html">Cart</a>
+                <div class="dropdown">
+                    <a href="page2.html">Account</a>
+                    <div class="dropdown-content">
+                        <a href="#">Sign In</a><br>
+                        <a href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <form action="" method="POST" enctype="multipart/form-data">
+            {{ form.csrf_token }}
+
+            {{ form.name.label }}
+            {{ form.name }}
+
+            {{ form.price.label }}
+            {{ form.price }}
+
+            {{ form.description.label }}
+            {{ form.description }}
+
+            {{ form.product_category.label }}
+            {{ form.product_category }}
+
+            {{ form.size.label }}
+            {{ form.size }}
+
+            {{ form.colour.label }}
+            {{ form.colour}}
+
+            {{ form.quantity.label }}
+            {{ form.quantity }}
+
+            {{ form.manufacturer.label }}
+            {{ form.manufacturer }}
+
+            {{ form.country_of_origin.label }}
+            {{ form.country_of_origin }}
+
+            {{ form.rating.label }}
+            {{ form.rating }}
+
+            {{ form.discount.label }}
+            {{ form.discount }}
+
+            {{ form.image_url.label }}
+            {{ form.image_url }}
+
+            <button type="Add Product">{{ operation_name }} Product</button><br><br>
+        </form>
+
+        <footer>
+            FusionFits|&copy;2023 All rights reserved
+        </footer>
+
+    </body>
+
+</html>

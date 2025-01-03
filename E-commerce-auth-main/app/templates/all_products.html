@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static',filename='styling.css') }}">
+        <title>View Product Details</title>
+    </head>
+
+    <body class="products">
+
+        <div class="navbar">
+            <div class="logo">FusionFits</div>
+
+            <div class="search-bar">
+                <input type="text" id="search" name="search" placeholder="Search">
+                <button type="button">Search</button><br><br>
+            </div>
+
+            <div class="account-section">
+                <a href="#">Cart</a>
+                <div class="dropdown">
+                    <a href="#">Account</a>
+                    <div class="dropdown-content">
+                        <a href="#">Sign In</a><br>
+                        <a href="#">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h2>Product Details</h2>
+        <a href="{{ url_for('product.create_new_product') }}" >
+            <button>Add New Product</button>
+        </a>
+
+
+        <table border="1" cellspacing="0" cellpadding="10" style="width: 100%; margin-top: 20px;">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Description</th>
+                    <th>Product Category</th>
+                    <th>Image</th>
+                    <th>Size</th>
+                    <th>Color</th>
+                    <th>Quantity</th>
+                    <th>Manufacturer</th>
+                    <th>Country of Origin</th>
+                    <th>Rating</th>
+                    <th>Discount</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for product in products %}
+                <tr>
+                    <td> {{ product.name }} </td>
+                    <td> {{ product.price }} </td>
+                    <td> {{ product.description }} </td>
+                    <td> {{ product.product_category }} </td>
+                    <td> <img height="200" src="{{ url_for('product.get_image',image_filename=product.Image_URL) }}" />
+                    </td>
+                    <td> {{ product.size }} </td>
+                    <td> {{ product.colour }} </td>
+                    <td> {{ product.quantity }} </td>
+                    <td> {{ product.manufacturer }} </td>
+                    <td> {{ product.country_of_origin }} </td>
+                    <td> {{ product.rating }} </td>
+                    <td> {{ product.discount }}% </td>
+
+                    <td>
+                        <a href="{{ url_for('product.update_product',product_id=product.id) }}">
+                            <button class="button">Update Product</button>
+                        </a>
+                        <br>
+                        <a href="{{ url_for('product.delete_product',product_id=product.id) }}">
+                            <button class="button">Delete Product</button>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <footer>
+            FusionFits | &copy;2023 All rights reserved
+        </footer>
+    </body>
+
+</html>
