@@ -1,6 +1,6 @@
 # from flask_login import UserMixin
 
-from . import db
+# from . import db
 
 # from sqlalchemy import Column, Integer, String, ForeignKey, Float, Date
 # from sqlalchemy.orm import declarative_base, relationship
@@ -108,7 +108,7 @@ from . import db
 from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
 # from .__init__ import db
-
+from . import db
 from sqlalchemy import Column, Integer, String, ForeignKey, Float, Date
 from sqlalchemy.orm import declarative_base, relationship
 from flask_sqlalchemy import SQLAlchemy
@@ -187,17 +187,21 @@ class Wishlist(db.Model):
     def __repr__(self):
         return f'<Wishlist {self.id}>'
 
-# Order table
+#Order table
 class Order(db.Model):
     __tablename__ = 'order'
     id = db.Column(db.Integer, primary_key=True)
     order_amount = db.Column(db.Float, nullable=False)
     order_date = db.Column(db.Date, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    product_id = db.Column(db.Integer, db.ForeignKey('product.id'), nullable=False)
-    status = db.Column(db.String(50), nullable=False)
+    product_id = db.Column(db.Integer, db.ForeignKey('product.id',ondelete="CASCADE"), nullable=False)
+    # status = db.Column(db.String(50), nullable=False)
+    status = db.Column(db.Enum('pending', 'shipped', 'delivered'), default='pending')
     payment_method=db.Column(db.String(50), default='Cash_on_delivery')
+
+    # product = relationship("Product", backref="order_items")
     def __repr__(self):
         return f'<Order {self.id}>'
+
 
 database = SQLAlchemy(model_class=declarative_base())

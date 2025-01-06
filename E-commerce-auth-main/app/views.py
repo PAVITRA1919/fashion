@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from .admin import admin_dashboard
+from .orders import delivery_dashboard,update_status
 main = Blueprint('main', __name__)
 
 @main.route('/')
@@ -22,9 +23,12 @@ def customer_dashboard():
     return render_template('customer_dashboard.html')  # Create this template
 
 @main.route('/delivery_dashboard')
-def delivery_dashboard():
-    return render_template('delivery_dashboard.html')  # Create this template
- 
+def delivery():
+    return delivery_dashboard()
+    # return render_template('delivery_dashboard.html')  # Create this template
+@main.route('/update_status', methods=['POST'])
+def order():
+    return update_status()
 @main.route('/default_dashboard')
 def default_dashboard():
     return render_template('default_dashboard.html')  # Create this template

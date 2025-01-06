@@ -63,7 +63,7 @@ def create_app():
     from .request import request
     from .product import product
     from .forms import forms
-    
+    from .orders import orders
     app.register_blueprint(main)
     app.register_blueprint(auth, url_prefix="/auth")
     app.register_blueprint(admin)
@@ -74,7 +74,7 @@ def create_app():
     # db creation and admin user setup
     app.register_blueprint(password,url_prefix="/password")
     app.register_blueprint(request,url_prefix="/request")
-    
+    app.register_blueprint(orders,url_prefix="/orders")
     with app.app_context():
         db.create_all()  # Creates db tables
         from .admin import create_admin_user  # Assuming this function exists in admin.py

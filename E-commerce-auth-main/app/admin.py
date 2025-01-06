@@ -31,20 +31,22 @@ def admin_dashboard():
     return render_template('all_products.html',delivery_requests=delivery_requests ,username=session.get('username'))
 
 
-@admin.route('/product')
-# @admin_dashboard
-def product_page():
-    if session.get('role') != 'admin':
-        flash('Access denied! Admins only.', 'danger')
-        return redirect(url_for('auth.login'))
-    return render_template('ProductForm.html', username=session.get('username'))
-@admin.route('/delivery_dashboard')
-# @admin_dashboard
-def delivery_dashboard():
-    if session.get('role') != 'customer':
-        flash('Access denied! Admins only.', 'danger')
-        return redirect(url_for('auth.login'))
-    return render_template('delivery_dashboard.html', username=session.get('username'))
+# @admin.route('/product')
+# # @admin_dashboard
+# def product_page():
+#     if session.get('role') != 'admin':
+#         flash('Access denied! Admins only.', 'danger')
+#         return redirect(url_for('auth.login'))
+#     return render_template('ProductForm.html', username=session.get('username'))
+
+
+# @admin.route('/delivery_dashboard')
+# # @admin_dashboard
+# def delivery_dashboard():
+#     if session.get('role') != 'customer':
+#         flash('Access denied! Admins only.', 'danger')
+#         return redirect(url_for('auth.login'))
+#     return render_template('delivery_dashboard.html', username=session.get('username'))
 
 
 

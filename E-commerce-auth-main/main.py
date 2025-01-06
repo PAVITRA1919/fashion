@@ -2,6 +2,7 @@ from app import create_app, db
 from app.models import User, Product, Cart, Wishlist, Order
 # Create the app instance using the factory function
 app = create_app()
+# os.environ['FLASK_ENV'] = 'development'
 # Create the db and tables
 # @app.before_first_request
 # def create_tables():

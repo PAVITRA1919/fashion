@@ -46,7 +46,8 @@
                     </select><br>
                 <Strong>status:</Strong>
                 <select class="status-select" onchange="updateStatus(12345, this.value)">
-                    <option value="Pending">Pending</option>
+                    <option value="
+                    ">Pending</option>
                     <option value="In Transit">In Transit</option>
                     <option value="Delivered">Delivered</option>
                 </select>
@@ -114,43 +115,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='styling.css') }}">
     <title>Delivery Dashboard</title>
 </head>
 <body>
-    <h1>Delivery Dashboard</h1>
-    
-    <form action="/add_delivery" method="POST">
-        <input type="text" name="name" placeholder="Delivery Name" required><br>
-        <input type="text" name="address" placeholder="Address" required><br>
-        <select name="status" required>
-            <option value="not started">Not Started</option>
-            <option value="intransit">In Transit</option>
-            <option value="attemptfailed">Attempt Failed</option>
-            <option value="delivery success">Delivery Success</option>
-        </select><br>
-        <button type="submit">Add Delivery</button>
-    </form>
+    <div class="dashboard-container">
+        <h1 align="center">Delivery Dashboard</h1>
+        <div class="header">Order Details</div>
+        <div class="order-list" id="order-list"> 
+            
+            {% if orders %}
+                {% for order in orders %}
+                <div class="order">
+                <!-- <img src="https://via.placeholder.com/150" alt="Product Image"> -->
+                <div class="order-details">
+                        <p><strong>Order ID:</strong> {{ order.id }}</p>
+                        <p><strong>Order Amount:</strong> ${{ order.order_amount }}</p>
+                        <p><strong>Order Date:</strong> {{ order.order_date }}</p>
+                        <!-- <p><strong>User ID:</strong> {{ order.user_id }}</p> -->
+                        <!-- <p><strong>Product ID:</strong> {{ order.product_id }}</p> -->
+                        <strong>Payment:</strong>
+                        <select class="payment-select">
+                            <option value="Cash on Delivery" selected>Cash on Delivery</option>
+                        </select><br>
+                        <p><strong>Status:</strong>
+                            <select class="status-select" onchange="updateStatus({{order.id}} , this.value)">
+                               
+                                <option value="shipped" {% if order.status == 'shipped' %}selected{% endif %}>Shipped</option>
+                                <option value="pending" {% if order.status == 'pending' %}selected{% endif %}>Pending</option>
+                                <option value="delivered" {% if order.status == 'delivered' %}selected{% endif %}>Delivered</option>
+                            </select>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p style="text-align: center; width: 100%;">No orders available.</p>
+            {% endif %}
+        </div>
+    </div>
 
-    <h2>Delivery List</h2>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>Status</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for delivery in deliveries %}
-                <tr>
-                    <td>{{ delivery.name }}</td>
-                    <td>{{ delivery.address }}</td>
-                    <td>{{ delivery.status }}</td>
-                    <td><a href="{{ url_for('update_delivery', id=delivery.id) }}">Update</a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <script>
+        function updateStatus(orderId, status) {
+            fetch('/update_status', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: orderId, status: status }),
+            })
+            // .then({console.log(response => response.json())})
+            .then(response => {
+        console.log(response); // Log the response to debug
+        return response.json(); // Parse the JSON response
+    })
+            .then(data => {
+                if (data.message) {
+                    alert(data.message);
+                    // Update the status text directly in the DOM
+                    const orderCard = document.querySelector(`[data-order-id="${orderId}"]`); 
+                    const statusElement = orderCard.querySelector('.status-select');
+                    statusElement.value = status; 
+                } else if (data.error) {
+                    alert(data.error);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
 </body>
 </html>

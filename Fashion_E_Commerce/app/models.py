@@ -81,25 +81,25 @@ class Order(db.Model):
 
     user = relationship("User", back_populates="orders")
     product = relationship("Product", back_populates="orders")
-    tracking_details = relationship("TrackingDetails", back_populates="order")
+    # tracking_details = relationship("TrackingDetails", back_populates="order")
 
 
 # TrackingDetails Table
-class TrackingDetails(db.Model):
-    __tablename__ = "TrackingDetails"
-    Tracking_ID = Column(Integer, primary_key=True)
-    Status = Column(String)
-    Order_ID = Column(Integer, ForeignKey("Order.Order_ID"))
+# class TrackingDetails(db.Model):
+#     __tablename__ = "TrackingDetails"
+#     Tracking_ID = Column(Integer, primary_key=True)
+#     Status = Column(String)
+#     Order_ID = Column(Integer, ForeignKey("Order.Order_ID"))
 
-    order = relationship("Order", back_populates="tracking_details")
-    # delivery_dashboard = relationship("DeliveryDashboard", back_populates="tracking_details")
+#     order = relationship("Order", back_populates="tracking_details")
+#     # delivery_dashboard = relationship("DeliveryDashboard", back_populates="tracking_details")
 
 
-# DeliveryDashboard Table
-class DeliveryDashboard(db.Model):
-    __tablename__ = "DeliveryDashboard"
-    Id = Column(Integer, primary_key=True)
-    Order_ID = Column(Integer, ForeignKey("Order.Order_ID"))
-    Status = Column(String)
+# # DeliveryDashboard Table
+# class DeliveryDashboard(db.Model):
+#     __tablename__ = "DeliveryDashboard"
+#     Id = Column(Integer, primary_key=True)
+#     Order_ID = Column(Integer, ForeignKey("Order.Order_ID"))
+#     Status = Column(String)
 
     # tracking_details = relationship("TrackingDetails", back_populates="delivery_dashboard")
