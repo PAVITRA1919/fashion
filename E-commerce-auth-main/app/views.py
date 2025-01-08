@@ -2,6 +2,7 @@ from flask import Blueprint, render_template
 from flask_login import login_required, current_user
 from .admin import admin_dashboard
 from .orders import delivery_dashboard,update_status
+from .utils import restrict_to_deliveryPerson,restrict_to_admin
 main = Blueprint('main', __name__)
 
 @main.route('/')
@@ -27,6 +28,7 @@ def delivery():
     return delivery_dashboard()
     # return render_template('delivery_dashboard.html')  # Create this template
 @main.route('/update_status', methods=['POST'])
+@restrict_to_deliveryPerson()
 def order():
     return update_status()
 @main.route('/default_dashboard')
@@ -38,9 +40,11 @@ def dashboard():
     return render_template('dashboard.html')  # Fallback or general dashboard
 
 @main.route('/forms')
+@restrict_to_admin()
 def forms():
     return render_template('ProductForm.html')
 
 @main.route('/product')
+@restrict_to_admin()
 def product():
     return render_template('all_products.html')

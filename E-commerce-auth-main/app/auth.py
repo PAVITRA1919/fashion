@@ -59,7 +59,7 @@ def login():
             if user.role == 'admin':
                 return redirect(url_for('admin.admin_dashboard'))
             elif user.role == 'delivery_person':
-                return redirect(url_for('main.delivery_dashboard'))
+                return redirect(url_for('main.delivery'))
             return redirect(url_for('main.customer_dashboard'))
         flash('Invalid email or password.', 'danger')
     return render_template('login.html', form=form)

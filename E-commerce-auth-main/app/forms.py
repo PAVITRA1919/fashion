@@ -58,7 +58,7 @@ class New_Product_Form(FlaskForm):
     description = StringField("Product Description", validators=[DataRequired()])
     product_category = StringField("Product Category", validators=[DataRequired()])
     size = StringField("Product Size", validators=[DataRequired()])
-    colour = StringField("Color", validators=[DataRequired()])
+    color = StringField("Color", validators=[DataRequired()])
     quantity = StringField("Product Quantity", validators=[DataRequired()])
     manufacturer = StringField("Product Manufacturer", validators=[DataRequired()])
     country_of_origin = StringField("Country Of Origin", validators=[DataRequired()])

@@ -61,10 +61,9 @@
                     <td> {{ product.price }} </td>
                     <td> {{ product.description }} </td>
                     <td> {{ product.product_category }} </td>
-                    <td> <img height="200" src="{{ url_for('product.get_image',image_filename=product.Image_URL) }}" />
-                    </td>
+                    <td> <img height="200" src="{{ url_for('product.get_image',image_filename=product.Image_URL) }}" /></td>
                     <td> {{ product.size }} </td>
-                    <td> {{ product.colour }} </td>
+                    <td> {{ product.color }} </td>
                     <td> {{ product.quantity }} </td>
                     <td> {{ product.manufacturer }} </td>
                     <td> {{ product.country_of_origin }} </td>
